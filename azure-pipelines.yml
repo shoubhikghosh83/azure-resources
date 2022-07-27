@@ -1,0 +1,24 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'service-connection'
+    subscriptionId: '2cf84361-d3e0-49e1-999b-3f1a50bbe47f'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: 'rg-sh-test'
+    location: 'Central India'
+    templateLocation: 'URL of the file'
+    csmFileLink: 'https://github.com/shoubhikghosh83/azure-resources/blob/master/resourceGroup.json'
+    overrideParameters: '-projectName [sh-az-ado] -rgName[rg-sh-test]'
+    deploymentMode: 'Incremental'
